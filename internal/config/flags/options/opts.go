@@ -4,24 +4,28 @@ import "net/url"
 
 // Opts represents common options.
 type Opts struct {
-	Host *url.URL
+	Host host
 }
 
-func (o *Opts) Set(host string) error {
+type host struct {
+	host *url.URL
+}
+
+func (h *host) Set(host string) error {
 	u, err := url.Parse(host)
 	if err != nil {
 		return err
 	}
 
-	o.Host = u
+	h.host = u
 
 	return nil
 }
 
-func (o Opts) String() string {
-	if o.Host == nil {
+func (h host) String() string {
+	if h.host == nil {
 		return ""
 	}
 
-	return o.Host.String()
+	return h.host.String()
 }
