@@ -1,6 +1,9 @@
 package options
 
-import "net/url"
+import (
+	"flag"
+	"net/url"
+)
 
 // Opts represents common options.
 type Opts struct {
@@ -10,6 +13,8 @@ type Opts struct {
 type host struct {
 	host *url.URL
 }
+
+var _ flag.Value = (*host)(nil)
 
 func (h *host) Set(host string) error {
 	u, err := url.Parse(host)
