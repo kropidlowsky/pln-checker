@@ -19,5 +19,5 @@ func ParseStressFlags() {
 
 	opts := &options.StressOpts{}
 
-	fs.Var(&opts.Host, "host", "")
+	fs.Var(&opts.Host, "Host", "Host to send the request to")
 }
