@@ -45,7 +45,7 @@ func TestSet(t *testing.T) {
 			err := h.Set(tc.host)
 			if tc.err != "" {
 				assert.Errorf(t, err, tc.err, tc.host)
-				assert.Empty(t, h.String())
+				assert.Empty(t, h.host)
 				return
 			}
 
