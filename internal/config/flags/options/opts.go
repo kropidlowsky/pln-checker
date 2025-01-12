@@ -17,7 +17,7 @@ type host struct {
 var _ flag.Value = (*host)(nil)
 
 func (h *host) Set(host string) error {
-	u, err := url.Parse(host)
+	u, err := url.ParseRequestURI(host)
 	if err != nil {
 		return err
 	}
