@@ -17,3 +17,11 @@ func (o *Opts) Set(host string) error {
 
 	return nil
 }
+
+func (o Opts) String() string {
+	if o.Host == nil {
+		return ""
+	}
+
+	return o.Host.String()
+}
