@@ -20,4 +20,6 @@ func ParseStressFlags() {
 	opts := &options.StressOpts{}
 
 	fs.Var(&opts.Host, "Host", "Host to send the request to")
+	fs.UintVar(&opts.Rate, "X", 0, "Numer of requests per the frequency (Y)")
+	fs.UintVar(&opts.Frequency, "Y", 0, "Interval for X requests")
 }
