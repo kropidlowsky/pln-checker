@@ -2,7 +2,6 @@ package request
 
 import (
 	"net/http"
-	"net/url"
 	"time"
 )
 
@@ -10,9 +9,9 @@ type Request struct {
 	host string
 }
 
-func NewRequest(host *url.URL) Request {
+func NewRequest(host string) Request {
 	return Request{
-		host: host.String(),
+		host: host,
 	}
 }
 

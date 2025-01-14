@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var opts = &options.StressOpts{}
+var opts = &options.LoadOpts{}
 
 var rootCmd = &cobra.Command{
 	Use:   "pln-checker",
