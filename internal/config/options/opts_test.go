@@ -40,18 +40,18 @@ func TestSet(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			var h host
+			opts := &Opts{}
 
-			err := h.Set(tc.host)
+			err := opts.Host.Set(tc.host)
 			if tc.err != "" {
 				assert.Errorf(t, err, tc.err, tc.host)
-				assert.Nil(t, h.host)
+				assert.Nil(t, opts.Host.host)
 				return
 			}
 
 			assert.NoError(t, err)
-			assert.Equal(t, tc.host, h.String())
-			assert.Equal(t, "url", h.Type())
+			assert.Equal(t, tc.host, opts.Host.String())
+			assert.Equal(t, "url", opts.Host.Type())
 		})
 	}
 }
