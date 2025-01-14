@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+
+    fmt:
+        description: "format code"
+        cmds:
+        - bin/gofumpt -w .
+
+    lint:
+        description: "lint code"
+        cmds:
+        - bin/golangci-lint run ./...
+
+    init-tools:
+        description: "initialize tools"
+        dir: tools
+        cmds:
+        - go generate -x
