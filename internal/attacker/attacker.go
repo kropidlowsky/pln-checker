@@ -47,7 +47,7 @@ func (a *Attacker) InfiniteAttack() {
 	<-sigChan
 }
 
-// Attack performs many attack at the same time.
+// Attack performs many attacks at the same time.
 func (a *Attacker) Attack() {
 	for i := 0; i < int(a.rate); i++ {
 		a.wg.Add(1)
@@ -66,6 +66,7 @@ func (a *Attacker) singleAttack() {
 		panic(err)
 	}
 
+	fmt.Printf("%+v", result)
 	a.rw.Lock()
 	defer a.rw.Unlock()
 	a.results = append(a.results, result)
