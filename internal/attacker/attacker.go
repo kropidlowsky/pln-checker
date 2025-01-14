@@ -30,8 +30,9 @@ func NewAttacker(opts options.LoadOpts) *Attacker {
 	}
 }
 
+// InfiniteAttack frequently performs many attacks at the same time for infinite time - it can be stopped by abortting the program (`ctrl` + `c`).
 func (a *Attacker) InfiniteAttack() {
-	ticker := time.NewTicker(1 * time.Second)
+	ticker := time.NewTicker(time.Duration(a.frequency) * time.Second)
 	defer ticker.Stop()
 
 	sigChan := make(chan os.Signal, 1)
