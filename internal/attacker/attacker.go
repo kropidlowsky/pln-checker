@@ -1,7 +1,6 @@
 package attacker
 
 import (
-	"fmt"
 	"os"
 	"os/signal"
 	"sync"
@@ -51,14 +50,16 @@ func (a *Attacker) InfiniteAttack() {
 func (a *Attacker) Attack() {
 	for i := 0; i < int(a.rate); i++ {
 		a.wg.Add(1)
-		a.singleAttack()
+		go func() {
+			defer a.wg.Done()
+			a.singleAttack()
+		}()
+
 	}
 }
 
 // singleAttack performs one attack.
 func (a *Attacker) singleAttack() {
-	defer a.wg.Done()
-
 	req := request.NewRequest(a.host)
 
 	result, err := req.Get()
@@ -66,7 +67,6 @@ func (a *Attacker) singleAttack() {
 		panic(err)
 	}
 
-	fmt.Printf("%+v", result)
 	a.rw.Lock()
 	defer a.rw.Unlock()
 	a.results = append(a.results, result)
