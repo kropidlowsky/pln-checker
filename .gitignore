@@ -27,3 +27,6 @@ go.work.sum
 
 # ignore binaries
 bin/*
+
+# logs
+log.txt
