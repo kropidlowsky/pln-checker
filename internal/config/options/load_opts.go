@@ -1,6 +1,6 @@
 package options
 
-// Opts represents stress testing options.
+// LoadOpts represents load testing options.
 type LoadOpts struct {
 	Opts
 
