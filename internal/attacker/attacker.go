@@ -39,8 +39,7 @@ func (a *Attacker) InfiniteAttack() {
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
-		for t := range ticker.C {
-			fmt.Println(t)
+		for range ticker.C {
 			a.Attack()
 		}
 	}()
