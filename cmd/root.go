@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/kropidlowsky/pln-checker/internal/attacker"
 	"github.com/kropidlowsky/pln-checker/internal/config/options"
 	"github.com/spf13/cobra"
 )
@@ -20,6 +21,9 @@ func Execute() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+
+	attacker := attacker.NewAttacker(*opts)
+	attacker.InfiniteAttack()
 }
 
 func init() {
