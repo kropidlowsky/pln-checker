@@ -1,8 +1,9 @@
 package options
 
 import (
-	"flag"
 	"net/url"
+
+	"github.com/spf13/pflag"
 )
 
 // Opts represents common options.
@@ -14,7 +15,7 @@ type host struct {
 	host *url.URL
 }
 
-var _ flag.Value = (*host)(nil)
+var _ pflag.Value = (*host)(nil)
 
 func (h *host) Set(host string) error {
 	u, err := url.ParseRequestURI(host)
@@ -33,4 +34,8 @@ func (h host) String() string {
 	}
 
 	return h.host.String()
+}
+
+func (h host) Type() string {
+	return "url"
 }
