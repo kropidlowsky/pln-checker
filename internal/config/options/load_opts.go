@@ -1,7 +1,7 @@
 package options
 
 // Opts represents stress testing options.
-type StressOpts struct {
+type LoadOpts struct {
 	Opts
 
 	Rate      uint
