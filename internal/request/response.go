@@ -20,13 +20,7 @@ func NewResponseValidator(response http.Response) ResponseValidator {
 // IsJSONContentType checks if the request's Content-Type header is JSON.
 func (r ResponseValidator) IsJSONContentType() bool {
 	contentType := r.response.Header.Get("Content-Type")
-
-	isJSON := strings.Contains(contentType, "application/json")
-	if isJSON == false {
-		return false
-	}
-
-	return true
+	return strings.Contains(contentType, "application/json")
 }
 
 // IsBodyValidJSON validates if response bopy is a valid JSON.
