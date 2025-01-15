@@ -6,6 +6,7 @@ import (
 	"github.com/jarcoal/httpmock"
 )
 
+// SetupMockServer setups sample mock responses used by uni tests.
 func SetupMockServer() {
 	httpmock.Activate()
 
