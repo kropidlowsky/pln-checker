@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/signal"
 	"sync"
+	"sync/atomic"
 	"syscall"
 	"time"
 
@@ -18,6 +19,7 @@ type Attacker struct {
 	frequency uint
 	logger    *zap.Logger
 
+	mu sync.Mutex
 	wg sync.WaitGroup
 }
 
@@ -38,29 +40,39 @@ func (a *Attacker) InfiniteAttack() {
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
+	var counter int64 = -1
+
 	go func() {
 		for range ticker.C {
-			a.Attack()
+			a.wg.Add(1)
+			go func() {
+				defer a.wg.Done()
+				atomic.AddInt64(&counter, 1)
+				a.Attack(int(counter))
+			}()
 		}
 	}()
 
+	a.wg.Wait()
 	<-sigChan
 }
 
 // Attack performs many attacks at the same time.
-func (a *Attacker) Attack() {
+func (a *Attacker) Attack(series int) {
+	var wg sync.WaitGroup
 	for i := 0; i < int(a.rate); i++ {
-		a.wg.Add(1)
+		wg.Add(1)
 		go func() {
-			defer a.wg.Done()
-			a.singleAttack()
+			defer wg.Done()
+			a.singleAttack(series, i)
 		}()
-
 	}
+
+	wg.Wait()
 }
 
 // singleAttack performs one attack.
-func (a *Attacker) singleAttack() {
+func (a *Attacker) singleAttack(series, attackNumber int) {
 	req := request.NewRequest(a.host)
 
 	result, err := req.Get()
@@ -68,5 +80,5 @@ func (a *Attacker) singleAttack() {
 		panic(err)
 	}
 
-	a.logger.Info("visited", zap.Any("result", result))
+	a.logger.Info("visited", zap.Int("series", series), zap.Int("attack", attackNumber), zap.Any("result", result))
 }
