@@ -25,6 +25,6 @@ export LOF_FILE=./logs/log.txt
 - run `direnv allow .`
 
 `go run  main.go --Host="" --X=10 --Y=1`
-- Host - host to test
+- Host - a valid URL to test
 - X - number of requests per the frequency (Y)
 - Y - interval/frequency in seconds
