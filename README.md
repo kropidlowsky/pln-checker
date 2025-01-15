@@ -24,7 +24,7 @@ export LOF_FILE=./logs/log.txt
 *Remember about refreshing your local environment variables!*
 - run `direnv allow .`
 
-`go run  main.go --Host="" --X=10 --Y=1`
+`go run . --Host="" --X=10 --Y=1`
 - Host - a valid URL to test
 - X - number of requests per the frequency (Y)
 - Y - interval/frequency in seconds
