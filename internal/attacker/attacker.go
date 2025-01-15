@@ -77,7 +77,7 @@ func (a *Attacker) singleAttack(series, attackNumber int) {
 
 	result, err := req.Get()
 	if err != nil {
-		panic(err)
+		a.logger.Error("failed to visit", zap.Int("series", series), zap.Int("attack", attackNumber))
 	}
 
 	a.logger.Info("visited", zap.Int("series", series), zap.Int("attack", attackNumber), zap.Any("result", result))
