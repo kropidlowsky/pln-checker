@@ -52,8 +52,8 @@ func (a *Attacker) InfiniteAttack() {
 		}
 	}()
 
-	a.wg.Wait()
 	<-sigChan
+	a.wg.Wait()
 }
 
 // Attack performs many attacks at the same time.
