@@ -8,8 +8,8 @@ import (
 
 func main() {
 	config := config.LoadConfig()
-	closer := slogger.Setup(config.LogFile)
+	logger, closer := slogger.NewLogger(config.LogFile)
 	defer closer()
 
-	cmd.Execute()
+	cmd.Execute(logger)
 }

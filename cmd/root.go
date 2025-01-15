@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 
 	"github.com/kropidlowsky/pln-checker/internal/attacker"
@@ -16,13 +17,13 @@ var rootCmd = &cobra.Command{
 	Short: "load test",
 }
 
-func Execute() {
+func Execute(logger *slog.Logger) {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
-	attacker := attacker.NewAttacker(*opts)
+	attacker := attacker.NewAttacker(*opts, logger)
 	attacker.InfiniteAttack()
 }
 

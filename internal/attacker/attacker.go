@@ -1,6 +1,7 @@
 package attacker
 
 import (
+	"log/slog"
 	"os"
 	"os/signal"
 	"sync"
@@ -15,17 +16,18 @@ type Attacker struct {
 	host      string
 	rate      uint
 	frequency uint
-	results   []request.RequestResult
+	logger    *slog.Logger
 
 	wg sync.WaitGroup
 	rw sync.RWMutex
 }
 
-func NewAttacker(opts options.LoadOpts) *Attacker {
+func NewAttacker(opts options.LoadOpts, logger *slog.Logger) *Attacker {
 	return &Attacker{
 		host:      opts.Host.String(),
 		rate:      opts.Rate,
 		frequency: opts.Frequency,
+		logger:    logger,
 	}
 }
 
@@ -69,5 +71,5 @@ func (a *Attacker) singleAttack() {
 
 	a.rw.Lock()
 	defer a.rw.Unlock()
-	a.results = append(a.results, result)
+	a.logger.Info("visited", slog.Any("result", result))
 }
