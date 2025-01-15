@@ -11,7 +11,7 @@ import (
 
 // NewLogger setups the default slog.
 func NewLogger(filename string) (*zap.Logger, func()) {
-	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0o666)
 	if err != nil {
 		log.Fatalf("error wile opening the log file: %s", err.Error())
 	}
