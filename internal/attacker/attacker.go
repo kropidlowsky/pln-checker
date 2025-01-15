@@ -19,7 +19,6 @@ type Attacker struct {
 	frequency uint
 	logger    *zap.Logger
 
-	mu sync.Mutex
 	wg sync.WaitGroup
 }
 
