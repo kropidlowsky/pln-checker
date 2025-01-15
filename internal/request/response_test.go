@@ -35,8 +35,6 @@ func TestIsJSONContentType(t *testing.T) {
 	}
 
 	for name, tc := range tcs {
-		tc := tc
-
 		t.Run(name, func(t *testing.T) {
 			response := http.Response{Header: tc.header}
 			responseValidator := NewResponseValidator(response)
@@ -81,8 +79,6 @@ func TestIsBodyValidJSON(t *testing.T) {
 	}
 
 	for name, tc := range tcs {
-		tc := tc
-
 		t.Run(name, func(t *testing.T) {
 			bodyReader := strings.NewReader(tc.body)
 			bodyCloser := io.NopCloser(bodyReader)
