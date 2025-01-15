@@ -2,7 +2,6 @@ package slogger
 
 import (
 	"io"
-	"log"
 	"os"
 
 	"go.uber.org/zap"
@@ -10,20 +9,13 @@ import (
 )
 
 // NewLogger setups the default slog.
-func NewLogger(filename string) (*zap.Logger, func()) {
-	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0o666)
-	if err != nil {
-		log.Fatalf("error wile opening the log file: %s", err.Error())
-	}
-
+func NewLogger(file *os.File) *zap.Logger {
 	multiCore := multiCore(file, os.Stdout)
 	core := zapcore.NewTee(multiCore)
 
 	logger := zap.New(core)
 
-	return logger, func() {
-		file.Close()
-	}
+	return logger
 }
 
 func multiCore(writers ...io.Writer) zapcore.Core {
