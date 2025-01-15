@@ -2,12 +2,12 @@ package cmd
 
 import (
 	"fmt"
-	"log/slog"
 	"os"
 
 	"github.com/kropidlowsky/pln-checker/internal/attacker"
 	"github.com/kropidlowsky/pln-checker/internal/config/options"
 	"github.com/spf13/cobra"
+	"go.uber.org/zap"
 )
 
 var opts = &options.LoadOpts{}
@@ -17,7 +17,7 @@ var rootCmd = &cobra.Command{
 	Short: "load test",
 }
 
-func Execute(logger *slog.Logger) {
+func Execute(logger *zap.Logger) {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

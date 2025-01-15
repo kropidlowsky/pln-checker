@@ -1,7 +1,6 @@
 package attacker
 
 import (
-	"log/slog"
 	"os"
 	"os/signal"
 	"sync"
@@ -10,19 +9,19 @@ import (
 
 	"github.com/kropidlowsky/pln-checker/internal/config/options"
 	"github.com/kropidlowsky/pln-checker/internal/request"
+	"go.uber.org/zap"
 )
 
 type Attacker struct {
 	host      string
 	rate      uint
 	frequency uint
-	logger    *slog.Logger
+	logger    *zap.Logger
 
 	wg sync.WaitGroup
-	rw sync.RWMutex
 }
 
-func NewAttacker(opts options.LoadOpts, logger *slog.Logger) *Attacker {
+func NewAttacker(opts options.LoadOpts, logger *zap.Logger) *Attacker {
 	return &Attacker{
 		host:      opts.Host.String(),
 		rate:      opts.Rate,
@@ -69,7 +68,5 @@ func (a *Attacker) singleAttack() {
 		panic(err)
 	}
 
-	a.rw.Lock()
-	defer a.rw.Unlock()
-	a.logger.Info("visited", slog.Any("result", result))
+	a.logger.Info("visited", zap.Any("result", result))
 }
