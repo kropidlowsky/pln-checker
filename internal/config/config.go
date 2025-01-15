@@ -22,5 +22,5 @@ func LoadConfig() Config {
 func init() {
 	viper.AutomaticEnv()
 
-	viper.SetDefault("LOG_FILE", "log.txt")
+	viper.SetDefault("LOG_FILE", "logs/log.txt")
 }
