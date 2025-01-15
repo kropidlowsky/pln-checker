@@ -29,6 +29,6 @@ func Execute(logger *zap.Logger) {
 
 func init() {
 	rootCmd.PersistentFlags().Var(&opts.Host, "Host", "Host to send the request to")
-	rootCmd.PersistentFlags().UintVar(&opts.Rate, "X", 0, "Numer of requests per the frequency (Y)")
+	rootCmd.PersistentFlags().UintVar(&opts.Rate, "X", 0, "Number of requests per the frequency (Y)")
 	rootCmd.PersistentFlags().UintVar(&opts.Frequency, "Y", 0, "Interval in seconds for making X requests at once")
 }
